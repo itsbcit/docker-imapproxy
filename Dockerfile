@@ -4,11 +4,10 @@ FROM bcit/centos:7
 RUN yum -y --setopt tsflags=nodocs --setopt timeout=5 install \
 	ca-certificates gcc make openssl-devel ncurses-devel
 
-ENV imapproxy_version "1.2.7"
-
-ENV IMAPPROXYD_CONF=/etc/imapproxy.conf \
-    TLS_CA_PATH=/etc/pki/tls/certs \
-    LISTEN_PORT=143
+ENV imapproxy_version 	"1.2.7"
+ENV IMAPPROXYD_CONF 	/etc/imapproxy.conf
+ENV TLS_CA_PATH 		/etc/pki/tls/certs
+ENV LISTEN_PORT         143
 
 COPY 50-copy-imapproxy-config.sh docker-entrypoint.d/
 
@@ -28,6 +27,9 @@ RUN yum -y --setopt timeout=5 remove \
 	gcc make openssl-devel ncurses-devel && \
 	yum clean all && \
 	rm -rf /src
+
+# Redirect syslog mail log to console for docker 
+RUN ln -sf /dev/stdout /var/log/mail.log
 
 EXPOSE 143
 
