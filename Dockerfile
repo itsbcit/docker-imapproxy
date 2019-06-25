@@ -1,5 +1,7 @@
 FROM bcit/centos:7
 
+LABEL maintainer="chriswood.ca@gmail.com"
+
 # Install build tools + pki
 RUN yum -y --setopt tsflags=nodocs --setopt timeout=5 install \
 	ca-certificates gcc make openssl-devel ncurses-devel
