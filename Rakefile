@@ -20,7 +20,7 @@ task :default do
   Rake::Task[:build].invoke
   Rake::Task[:test].invoke
   Rake::Task[:tag].invoke
-  # Rake::Task[:push].invoke
+  Rake::Task[:push].invoke
 end
 
 desc "Update Dockerfile templates"
