@@ -1,4 +1,4 @@
-FROM bcit/centos:7
+FROM bcit/centos:7-supervisord
 
 LABEL maintainer="<%= maintainer %>"
 
@@ -24,10 +24,11 @@ RUN wget https://sourceforge.net/projects/squirrelmail/files/imap_proxy/1.2.7/sq
     make install-conf
 
 # Clean up build
-WORKDIR /var/log
+WORKDIR /tmp
 RUN yum -y --setopt timeout=5 remove \
     gcc make openssl-devel ncurses-devel && \
     yum clean all && \
+    rm -rf /var/cache/yum/* && \
     rm -rf /src
 
 # Fix syslog-ng errors
@@ -40,5 +41,8 @@ RUN sed -i 's/#tls_ca_file/tls_ca_file/' /etc/imapproxy.conf && \
     sed -i 's$/usr/share/ssl/certs/$/etc/pki/tls/certs/$' /etc/imapproxy.conf && \
     mkdir /config
 
+COPY syslog-ng-extra.conf /etc/syslog-ng/conf.d/
+COPY supervisor-imapproxy.conf /etc/supervisor/conf.d/
+
 EXPOSE 143
-cmd ["sh", "-c", "syslog-ng ; /usr/local/sbin/in.imapproxyd -f $IMAPPROXYD_CONF ; tail -F /var/log/maillog"]
+CMD ["supervisord", "-c", "/etc/supervisor.conf"]
