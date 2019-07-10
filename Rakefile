@@ -9,7 +9,7 @@ def render_template(template, output, scope)
   end
 end
 
-maintainer = 'chriswood.ca@gmail.com'
+maintainer = 'chriswood.ca@gmail.com, Juraj Ontkanin'
 org_name = 'bcit'
 image_name = 'docker-imapproxy'
 version = '1.2.7'
@@ -20,7 +20,7 @@ task :default do
   Rake::Task[:build].invoke
   Rake::Task[:test].invoke
   Rake::Task[:tag].invoke
-  Rake::Task[:push].invoke
+  # Rake::Task[:push].invoke
 end
 
 desc "Update Dockerfile templates"
