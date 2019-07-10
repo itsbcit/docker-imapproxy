@@ -54,10 +54,10 @@ RUN sed -i 's/#tls_ca_file/tls_ca_file/' /etc/imapproxy.conf \
  && sed -i 's/#tls_ca_path/tls_ca_path/' /etc/imapproxy.conf \
  && sed -i 's$/usr/share/ssl/certs/$/etc/pki/tls/certs/$' /etc/imapproxy.conf
 
+COPY 50-copy-imapproxy-config.sh /docker-entrypoint.d/
+
 COPY syslog-ng-extra.conf /etc/syslog-ng/conf.d/
 COPY supervisor-imapproxy.conf /etc/supervisor/conf.d/
-
-COPY 50-copy-imapproxy-config.sh docker-entrypoint.d/
 
 EXPOSE 143
 CMD ["supervisord", "-c", "/etc/supervisor.conf"]
