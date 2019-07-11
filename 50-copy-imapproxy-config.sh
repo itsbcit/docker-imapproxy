@@ -19,4 +19,4 @@ if [ -f "${IMAPPROXYD_CONF}.tmpl" ]; then
     echo "         =>  ${IMAPPROXYD_CONF}"
     dockerize -template "${IMAPPROXYD_CONF}.tmpl":"$IMAPPROXYD_CONF" \
     && rm -f "${IMAPPROXYD_CONF}.tmpl"
-done
+fi
