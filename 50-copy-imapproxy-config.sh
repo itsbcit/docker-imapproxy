@@ -14,6 +14,7 @@ if [ -f "$CONFIGDIR"/.DOCKERIZE.env ]; then
     echo "loading: ${CONFIGDIR}/.DOCKERIZE.env"
     . "$CONFIGDIR"/.DOCKERIZE.env
 fi
+echo "DOCKERIZE_ENV: ${DOCKERIZE_ENV}"
 if [ -f "${IMAPPROXYD_CONF}.tmpl" ]; then
     echo "dockerizing: ${IMAPPROXYD_CONF}.tmpl"
     echo "         =>  ${IMAPPROXYD_CONF}"
